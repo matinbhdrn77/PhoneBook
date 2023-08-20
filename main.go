@@ -19,6 +19,6 @@ func main() {
 	root.AddCommand()
 
 	if err := root.Execute(); err != nil {
-		log.Fatal("failed to execute root command:\n%v", err)
+		log.Fatalf("failed to execute root command:\n%v", err)
 	}
 }
