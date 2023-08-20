@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -15,4 +16,9 @@ func main() {
 	trap := make(chan os.Signal, 1)
 	signal.Notify(trap, syscall.SIGINT, syscall.SIGTERM)
 
+	root.AddCommand()
+
+	if err := root.Execute(); err != nil {
+		log.Fatal("failed to execute root command:\n%v", err)
+	}
 }
