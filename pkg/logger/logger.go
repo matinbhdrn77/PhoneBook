@@ -39,3 +39,13 @@ func getEncoder(cfg *Config) zapcore.Encoder {
 func getWriteSyncer(cfg *Config) zapcore.WriteSyncer {
 	return zapcore.Lock(os.Stdout)
 }
+
+func getLoggerLevel(cfg *Config) zap.AtomicLevel {
+	var level zapcore.Level
+
+	if err := level.Set(cfg.Level); err != nil {
+		return zap.NewAtomicLevelAt(zapcore.DebugLevel)
+	}
+
+	return zap.NewAtomicLevelAt(level)
+}
