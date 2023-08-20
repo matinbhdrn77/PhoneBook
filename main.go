@@ -6,6 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/matinbhdrn77/PhoneBook/cmd"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +17,9 @@ func main() {
 	trap := make(chan os.Signal, 1)
 	signal.Notify(trap, syscall.SIGINT, syscall.SIGTERM)
 
-	root.AddCommand()
+	root.AddCommand(
+		cmd.Server{}.Command(trap),
+	)
 
 	if err := root.Execute(); err != nil {
 		log.Fatalf("failed to execute root command:\n%v", err)
