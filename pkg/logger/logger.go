@@ -1,6 +1,8 @@
 package logger
 
 import (
+	"os"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -32,4 +34,8 @@ func getEncoder(cfg *Config) zapcore.Encoder {
 	}
 
 	return encoder
+}
+
+func getWriteSyncer(cfg *Config) zapcore.WriteSyncer {
+	return zapcore.Lock(os.Stdout)
 }
