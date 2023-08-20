@@ -10,7 +10,15 @@ import (
 type Server struct{}
 
 func (cmd Server) Command(trap chan os.Signal) *cobra.Command {
-	return nil
+	run := func(_ *cobra.Command, _ []string) {
+		cmd.run(&config.Config{}, trap)
+	}
+
+	return &cobra.Command{
+		Use:   "server",
+		Short: "run PhoneBook server",
+		Run:   run,
+	}
 }
 
 func (cmd *Server) run(cfg *config.Config, trap chan os.Signal) {
